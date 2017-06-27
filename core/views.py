@@ -3,6 +3,8 @@ from django.http import HttpResponse
 
 from catalog.models import Category
 
+from .forms import ContactForm
+
 # Create your views here.
 
 def index(request):
@@ -14,7 +16,14 @@ def index(request):
     return render( request ,'index.html' )
 
 def contact(request):
-    return render(request,'contact.html')
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+    else:
+        form = ContactForm()
+    context = {
+        'form': form
+    }
+    return render(request,'contact.html', context)
 
 #def product_list(request):
 #    return render(request, 'product_list.html')
