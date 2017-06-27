@@ -2,30 +2,52 @@
 
 from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
+from django.core import mail
 
-from catalog.models import Category, Product
-from model_mommy import mommy
-
-class ProductListTestCase(TestCase):
+class IndexViewTestCase(TestCase):
 
     def setUp(self):
         #Quando inicia um teste
-        self.url = reverse('catalog:product_list')
-        self.products = mommy.make('catalog.Product', _quantity=10)
-        self.client = Client()
-
+        client = Client()
+        self.url = reverse('index')
 
     def tearDown(self):
         #Quando terminar o test
-        Product.objects.all().delete()
+        pass
+
+    def test_status_code(self):
+        response = self.client.get(self.url)
+        self.assertEquals(response.status_code, 200)
+
+    def test_template_used(self):
+        response = self.client.get(self.url)
+        self.assertTemplateUsed(response, 'index.html')
+
+class ContactViewTestCase(TestCase):
+    def setUp(self):
+        #Quando inicia um teste
+        client = Client()
+        self.url = reverse('contact')
+
+    def tearDown(self):
+        #Quando terminar o test
+        pass
 
     def test_view_ok(self):
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code = 200)
-        self.assertTemplateUsed(response , 'catalog/product_list.html')
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'contact.html')
 
-    def test_context(self):
-        response = self.client.get(self.url)
-        self.assertTrue('product_list' in response.context )
-        product_list = response.conte['product_list']
-        self.assertEquals(product_list.count(), 10)
+    def test_form_error(self):
+        data = {'name':'', 'message': '', 'email': ''}
+        response = self.client.post(self.url, data )
+        self.assertFormError(response, 'form', 'name', 'Este campo é obrigatório.')
+        self.assertFormError(response, 'form', 'email', 'Este campo é obrigatório.')
+        self.assertFormError(response, 'form', 'message', 'Este campo é obrigatório.')
+
+    def test_form_ok(self):
+        data = {'name':'teste', 'message': 'teste', 'email': 'teste@teste.com'}
+        response = self.client.post(self.url, data )
+        self.assertTrue(response.context['success'])
+        self.assertEquals(len(mail.outbox), 1)
+        #self.assertEquals(mail.outbox[0].subject)

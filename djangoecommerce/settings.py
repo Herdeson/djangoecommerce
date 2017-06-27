@@ -119,8 +119,13 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+# E-mail
+#EMAIL_HOST = ''
+#EMAIL_HOST_USER = ''
+#EMAIL_HOTST_PASSWORD = ''
+#DEFAULT_FROM_EMAIL = 'admin@djangoecommerce.com'
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -128,9 +133,8 @@ STATIC_URL = '/static/'
 #STATICFILES_DIRS = [
 #    os.paht.join(BASE_DIR, 'staticfiles')
 #]
-"""
-try:
-    from .local_settings import *
-except ImportError:
-    pass
-"""
+
+#try:
+#    from .local_settings import *
+#except ImportError:
+#    pass
