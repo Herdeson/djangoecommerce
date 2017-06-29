@@ -8,7 +8,7 @@
     <h1>Produtos</h1>
   </div>
   <div class="row">
-    {% for product in products %}
+    {% for product in product_list %}
     <div class="col-sm-6 col-md-4">
       <div class="thumbnail">
         <a href="#">
@@ -23,7 +23,17 @@
     </div>
 
     {% endfor %}
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <nav>
+        <ul class="pagination">
+          {% for page in paginator.page_range %}
+            <li><a href="?page="></a></li>
 
-
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
   </div>
 {% endblock %}

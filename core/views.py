@@ -4,19 +4,31 @@ from django.http import HttpResponse
 from catalog.models import Category
 
 from django.conf import settings
+from django.views.generic import View, TemplateView
 # from djangoecommerce import settings # Nunca fazer dessa forma
 from .forms import ContactForm
 
 # Create your views here.
 
+class IndexView(TemplateView):
+
+    template_name = 'index.html'
+
+    #def get(self, request):
+    #    return render(request, 'index.html')
+
+index = IndexView.as_view()
+
+
+"""
 def index(request):
     #return HttpResponse('Helo World!')
     #context = {
     #    'categories': Category.objects.all()
     #}
-
     return render( request ,'index.html' )
-"""
+
+
 def contact(request):
     success = False
     if request.method == 'POST':
@@ -34,6 +46,8 @@ def contact(request):
     }
     return render(request,'contact.html', context)
 """
+
+
 
 def contact(request):
     success = False
