@@ -20,6 +20,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
+# Deve estar em uma variavel de ambiente e não diretamente no arquivo
+#SECRET_KEY = os.getenv('SECRET_KEY', 'VALOR DO VARIAVEL DE AMBIENTE')
 SECRET_KEY = 'k%h2wcj^krlpn2y92(4f50^nzl-5(t!@4m4&zbb-x3*&zo(er2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -124,6 +127,11 @@ USE_TZ = True
 #EMAIL_HOST_USER = ''
 #EMAIL_HOTST_PASSWORD = ''
 #DEFAULT_FROM_EMAIL = 'admin@djangoecommerce.com'
+
+#auth
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL ='index'
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Static files (CSS, JavaScript, Images)

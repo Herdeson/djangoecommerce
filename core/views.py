@@ -4,10 +4,13 @@ from django.http import HttpResponse
 from catalog.models import Category
 
 from django.conf import settings
-from django.views.generic import View, TemplateView
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic import View, TemplateView, CreateView
 # from djangoecommerce import settings # Nunca fazer dessa forma
 from .forms import ContactForm
 
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
 # Create your views here.
 
 class IndexView(TemplateView):
@@ -66,7 +69,15 @@ def contact(request):
 #def product_list(request):
 #    return render(request, 'product_list.html')
 
-
+User = get_user_model()
 
 def product(request):
     return render(request, 'product.html')
+
+class RegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'register.html'
+    model = User
+    success_url = reverse_lazy('index')
+
+register = RegisterView.as_view()

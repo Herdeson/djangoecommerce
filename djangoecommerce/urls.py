@@ -19,9 +19,14 @@ from django.contrib import admin
 from core import views
 from catalog import views as views_catalog
 # url primeiro padrao, segundo a view, nome para ser utilizado nos templates
+
+from django.contrib.auth.views import login, logout
 urlpatterns = [
     url(r'^$', views.index , name='index'),
     url(r'^contato/$', views.contact , name='contact'),
+    url(r'^entrar/$', login, {'template_name': 'login.html'} , name='login'),
+    url(r'^sair/$', logout, {'next_page': 'index'} , name='logout'),
     url(r'^catalogo/', include('catalog.urls', namespace='catalog')),#namespace e
+    url(r'^registro/$', views.register , name='register'),
     url(r'^admin/', admin.site.urls),
 ]

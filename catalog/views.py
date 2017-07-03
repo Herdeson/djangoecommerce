@@ -10,7 +10,7 @@ class ProductListView(generic.ListView):
     template_name = 'catalog/product_list.html'
     # Paginação
     # Automatica mente cria na url page = nume
-    paginate_by = 2
+    paginate_by = 3
 
 product_list = ProductListView.as_view()
 
