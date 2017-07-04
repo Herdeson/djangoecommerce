@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'core',
     'catalog',
+    'accounts',
 
     'widget_tweaks',
     'django.contrib.admin',
@@ -131,6 +132,8 @@ USE_TZ = True
 #auth
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL ='index'
+
+AUTH_USER_MODEL = 'accounts.User'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
