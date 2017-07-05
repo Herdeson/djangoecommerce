@@ -135,6 +135,13 @@ LOGIN_REDIRECT_URL ='index'
 
 AUTH_USER_MODEL = 'accounts.User'
 
+#Backend para fazer o login no sistema
+
+AUTHENTICATION_BACKENDS =(
+    'django.contrib.auth.backends.ModelBackend',
+    'accounts.backends.ModelBackend'
+)
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Static files (CSS, JavaScript, Images)

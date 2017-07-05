@@ -69,11 +69,11 @@ def contact(request):
 #def product_list(request):
 #    return render(request, 'product_list.html')
 
-User = get_user_model()
+#User = get_user_model()
 
 def product(request):
     return render(request, 'product.html')
-
+"""
 class RegisterView(CreateView):
     form_class = UserCreationForm
     template_name = 'register.html'
@@ -81,3 +81,4 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('index')
 
 register = RegisterView.as_view()
+"""
