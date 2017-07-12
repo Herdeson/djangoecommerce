@@ -10,7 +10,7 @@ class ProductListView(generic.ListView):
     template_name = 'catalog/product_list.html'
     # Paginação
     # Automatica mente cria na url page = nume
-    paginate_by = 3
+    paginate_by = 2
 
 product_list = ProductListView.as_view()
 
@@ -24,6 +24,7 @@ def product_list(request):
 class CategoryListView(generic.ListView):
 
     template_name = 'catalog/category.html'
+    paginate_by = 2
 
     def get_queryset(self):
         #category = get_object_or_404(Category, slug=self.kwargs['slug'])
