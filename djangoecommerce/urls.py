@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^sair/$', logout, {'next_page': 'index'} , name='logout'),
     url(r'^catalogo/', include('catalog.urls', namespace='catalog')),#namespace e
     url(r'^conta/', include('accounts.urls', namespace='accounts')),
+    url(r'^compras/', include('checkout.urls', namespace='checkout')),
     #url(r'^registro/$', views.register , name='register'),
     url(r'^admin/', admin.site.urls),
 ]

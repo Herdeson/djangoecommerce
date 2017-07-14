@@ -5,7 +5,19 @@ from django.db import models
 class CartItemManager(models.Manager):
 
     def add_item(self, key, product):
-        pass
+        #cart_item, created = self.get_or_create(cart_key=key , product=product, price= product.price) # cuidado que pode ocorrer que o preço esteja alterado
+        if self.filter(cart_key = key, product= product).exists():
+            created = False
+            cart_item = self.get(cart_key = key, product= product)
+            cart_item.quantity = cart_item.quantity + 1
+            cart_item.save()
+        else:
+            created = True
+            cart_item = CartItem.objects.create(cart_key=key, product = product, price= product.price)
+#        if not created:
+#            cart_item.quantity = cart_item.quantity + 1
+#            cart_item.save()
+        return cart_item, created
 
 
 class CartItem(models.Model):

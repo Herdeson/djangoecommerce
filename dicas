@@ -4,3 +4,6 @@ criar um arquivo chamado local_settings e adicionar no git ignore
 para assim não subir para o git arquivos referente ao ambiente local
 
 Criar um arquivo de exemplo para outros devs entenderem o funcionamento
+
+
+Session key só é utilizado quando necessario e por conta disso é necessário criar a session.
