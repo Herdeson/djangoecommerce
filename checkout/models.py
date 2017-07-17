@@ -24,7 +24,7 @@ class CartItem(models.Model):
     cart_key = models.CharField('Chave do carrinho', max_length=40, db_index=True)
     product = models.ForeignKey('catalog.Product', verbose_name='Produto')
     quantity = models.PositiveIntegerField('Quantidade', default=1)
-    price = models.DecimalField('Preço', decimal_places=2, max_digits=8)
+    price = models.DecimalField('Preço', decimal_places=2, max_digits=10)
     objects = CartItemManager()
 
     class Meta:
@@ -34,3 +34,11 @@ class CartItem(models.Model):
 
     def __str__(self):
         return '{} [{}]'.format(self.product, self.quantity)
+
+
+def post_save_cart_item(instance, **kwargs):
+    if instance.quantity < 1 :
+        instance.delete()
+
+# Funcao, sender especifica o modelo
+models.signals.post_save.connect(post_save_cart_item, sender=CartItem, dispatch_uid='post_save_cart_item')
