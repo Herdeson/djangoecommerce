@@ -24,10 +24,10 @@ class ProductListTestCase(TestCase):
         response = self.client.get(self.url)
         self.assertTrue('product_list' in response.context)
         product_list = response.context['product_list']
-        self.assertEquals(product_list.count(), 3)
+        self.assertEquals(product_list.count(), 2)
         paginator = response.context['paginator']
-        self.assertEquals(paginator.num_pages, 4)
+        self.assertEquals(paginator.num_pages, 5)
 
     def test_page_not_fount(self):
-        response = self.client.get('{}?page=5'.format(self.url))
+        response = self.client.get('{}?page=7'.format(self.url))
         self.assertEquals(response.status_code, 404)
