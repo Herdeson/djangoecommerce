@@ -31,3 +31,18 @@ class CreateCartItemTestCase(TestCase):
         response = self.client.get(self.url)
         cart_item = CartItem.objects.get()
         self.assertEquals(cart_item.quantity, 2)
+
+class CheckoutViewTestCase(TestCase):
+    def setUp(self):
+        self.user = mommy.make(settings.AUTH_USER_MODEL)
+        self.user.set_password('123456')
+        self.user.save
+        self.cart_item = mommy.make(CartItem)
+        self.client = Client()
+
+    def test_checkou_view(self):
+        response = self.client.get(reverse('checkout:checkout'))
+        redirect_url = reverse(settings.LOGIN_URL)
+        self.assertRedirects(response,redirect_url)
+        self.client.login(username=self.user.username, password='123456')
+        response = self.client.get(reverse('checkout:checkout'))
