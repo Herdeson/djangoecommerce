@@ -39,10 +39,15 @@ class CheckoutViewTestCase(TestCase):
         self.user.save
         self.cart_item = mommy.make(CartItem)
         self.client = Client()
+        self.checkout_url = reverse('checkout:checkout')
 
     def test_checkou_view(self):
         response = self.client.get(reverse('checkout:checkout'))
-        redirect_url = reverse(settings.LOGIN_URL)
+        redirect_url = '{}?next={}'.format( reverse(settings.LOGIN_URL),\
+                    reverse('checkout:checkout'))
         self.assertRedirects(response,redirect_url)
         self.client.login(username=self.user.username, password='123456')
-        response = self.client.get(reverse('checkout:checkout'))
+        self.cart_item.cart_key = self.client.session.session_key
+        self.cart_item.save()
+        response = self.client.get(self.checkout_url)
+        #self.assertTemplateUsed(response,'checkout/checkout.html')
